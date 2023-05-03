@@ -13,7 +13,7 @@ const userSchema = new Schema(
             required: true,
             unique: true,
             match: [
-                /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/,
+                /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g,
                 'Please enter a valid email address',
             ]
         },
@@ -32,7 +32,7 @@ const userSchema = new Schema(
     },
     {
         toJSON: {
-            getters: true,
+            virtuals: true,
         },
         id: false,
     }

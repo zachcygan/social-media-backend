@@ -19,9 +19,10 @@ const reactionSchema = new Schema(
             type: Date,
             default: Date.now,
             get: (timestamp) => {
-                const date = new Date(timestamp)
-                
-            }
+                const date = new Date(timestamp);
+                const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+                return formattedDate;
+            },
         }
     },
     {

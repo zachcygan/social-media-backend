@@ -12,17 +12,27 @@ const thoughtSchema = new Schema(
         createdAt: {
             type: Date,
             default: Date.now,
-            
+            get: (timestamp) => {
+                const date = new Date(timestamp);
+                const formattedDate = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
+                return formattedDate;
+            },
         },
         username: {
             type: String,
             required: true
         },
         reactions: [reactionSchema]
+    },
+    {
+        toJSON: {
+            virtuals: true,
+        },
+        id: false,
     }
 )
 
-userSchema.virtual('reactionCount').get(function() {
+thoughtSchema.virtual('reactionCount').get(function() {
     return this.reactions.length
 })
 
