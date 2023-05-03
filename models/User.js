@@ -43,6 +43,12 @@ userSchema.virtual('friendCount').get(function() {
     return this.friends.length
 })
 
+// userSchema.pre('findOneAndDelete', async () => {
+//     const parent = await this.findOne()
+//     await mongoose.model('thoughts').deleteMany({ _id: { $in: parent.thoughts } })
+//     next();
+// })
+
 const User = model('User', userSchema)
 
 module.exports = User;
