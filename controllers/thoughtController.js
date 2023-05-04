@@ -83,7 +83,6 @@ module.exports = {
     },
     async createReaction(req, res) {
         try {
-            console.log(req.params.id)
             const addReaction = await Thought.findOneAndUpdate(
                 { _id: req.params.thoughtId },
                 { $push: { reactions: req.body } },
