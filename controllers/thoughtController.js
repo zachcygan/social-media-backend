@@ -33,7 +33,7 @@ module.exports = {
             const addThought = await User.findOneAndUpdate(
                 { _id: req.body.userId },
                 { $push: { thoughts: thought._id } },
-                {  runValidators: true, new: true }
+                { runValidators: true, new: true }
             )
 
             res.json(addThought)

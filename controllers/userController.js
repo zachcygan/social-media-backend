@@ -1,4 +1,4 @@
-const { User, Thought } = require('../models');
+const { User, Thought, reactionSchema } = require('../models');
 
 module.exports = {
     async getUsers(req, res) {
@@ -15,8 +15,6 @@ module.exports = {
         try {
             console.log(req.params.id)
             const user = await User.findOne({ _id: req.params.id })
-            // .select('-__v')
-            // .lean();
 
             if (!user) {
                 return res.status(404).json({ message: 'No user found with that ID' })
@@ -60,7 +58,6 @@ module.exports = {
     async deleteUser(req, res) {
         try {
             const user = await User.find({ _id: req.params.id })
-            console.log(user[0].username)
 
             if (!user) {
                 return res.status(404).json({ message: 'No user found with that ID' })
