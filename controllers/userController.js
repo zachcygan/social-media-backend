@@ -1,20 +1,11 @@
 const { User, Thought } = require('../models');
 
-const getNumberFriends = async () => {
-    const numberOfFriends = await User.aggregate().count('friendCount')
-    return numberOfFriends;
-}
-
 module.exports = {
     async getUsers(req, res) {
         try {
             const users = await User.find();
 
-            const usersObj = {
-                users,
-                friends: await getNumberFriends(),
-            }
-            return res.json(usersObj)
+            return res.json(users)
         } catch (err) {
             console.log(err);
             return res.status(500).json(err);
@@ -68,13 +59,16 @@ module.exports = {
     },
     async deleteUser(req, res) {
         try {
-            const user = await User.findOne({ _id: req.params.id });
+            const user = await User.find({ _id: req.params.id })
+            console.log(user[0].username)
 
             if (!user) {
                 return res.status(404).json({ message: 'No user found with that ID' })
             }
 
-            const removeUser = await User.findOneAndDelete({ _id: req.params.id });
+            await Thought.deleteMany({ username: user[0].username })
+            
+            await User.findOneAndDelete({ _id: req.params.id });
 
             return res.json({ message: 'Successfully removed user' })
         } catch (err) {

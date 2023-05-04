@@ -1,5 +1,4 @@
 const { User, Thought, reactionSchema } = require('../models');
-const { add } = require('../models/Reaction');
 
 module.exports = {
     async getThoughts(req, res) {
@@ -16,8 +15,6 @@ module.exports = {
         try {
             console.log(req.params.id)
             const thought = await Thought.findOne({ _id: req.params.id })
-            // .select('-__v')
-            // .lean();
 
             if (!thought) {
                 return res.status(404).json({ message: 'No thought found with that ID' })
