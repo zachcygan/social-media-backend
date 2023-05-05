@@ -13,7 +13,7 @@ module.exports = {
     },
     async getSingleThought(req, res) {
         try {
-            console.log(req.params.id)
+       
             const thought = await Thought.findOne({ _id: req.params.id })
 
             if (!thought) {

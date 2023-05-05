@@ -13,7 +13,7 @@ module.exports = {
     },
     async getSingleUser(req, res) {
         try {
-            console.log(req.params.id)
+           
             const user = await User.findOne({ _id: req.params.id })
 
             if (!user) {
